@@ -4,7 +4,7 @@ __pycache__/
 # data
 GRF/Data/
 GRF/ProcessedData/
-GRF/checkpoint/*
+# GRF/checkpoint/
 
 # visualization
 Visualization/aitviewer/
