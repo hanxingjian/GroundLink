@@ -52,12 +52,7 @@ python preprocess.py
 
 ### Test Trained Models
 
-To predict with the trained model:
-```
-
-```
-
-We save our trained models in [GRF/checkpoint](./GRF/checkpoint/). T
+We save our trained models in [GRF/checkpoint](./GRF/checkpoint/). We will release scripts for predictiong with trained models.
 
 ### Train with Motion and Force Data
 
@@ -72,19 +67,16 @@ mv forceplate.py aitviewer/
 
 
 Navigate to configuration file and change the model location:
-```
-cd aitviewer/aitviewer
-```
+```cd aitviewer/aitviewer```
+
 Edit L2 from [aitvconfig.yaml](https://github.com/eth-ait/aitviewer/blob/main/aitviewer/aitvconfig.yaml) to your location of SMPL-X models. If stricly following this repo including the folder structure above:
 ```L2: smplx_models: "./models/smplx_models"```
 
 Install:
-```
-cd .. 
-pip install -e .
-```
+```cd .. && pip install -e .```
 
-Example scripts for visualizing predicted force along with motion sequences (with or without target force) will be provided. 
+We provide sample data located in [./GRF/SampleData/](./GRF/SampleData/) and you can run the viewer with:
+```python visualize_target_pred.py ``` 
 
 
 ## Authors
