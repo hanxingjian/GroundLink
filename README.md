@@ -25,20 +25,19 @@ To reproduce our results, please follow the steps for installation and running t
 
 ### Data Download
 We have released the motion and paired GRF/CoP data to our [data download page](https://csr.bu.edu/groundlink/). 
-For simplicity, download SMPL-X models from the [page](https://csr.bu.edu/groundlink/), place it to [Visualization/models](./Visualization/models/) and extract. 
+Please also download SMPL-X models from the [page](https://smpl-x.is.tue.mpg.de/) (navigate to the Download page), place it to [Visualization/models](./Visualization/models/) and extract. 
 
 ### Installation
 
 The neural network structure and model design is inherited from [UnderPressure](https://github.com/InterDigitalInc/UnderPressure). Current setup requires Python 3.9.7 and Pytorch 1.10.2. We use [aitviewer](https://github.com/eth-ait/aitviewer) to visualize and interact with the 3D motion sequence reconstructed from [MoSh++](https://github.com/nghorbani/moshpp).
 
-The code was tested on Ubuntu 20.04. To clone the repo and install dependencies:
+The code was tested on Ubuntu 20.04 and Windows 11. To clone the repo and install dependencies:
 ```
 git clone https://github.com/hanxingjian/GroundLink.git
 cd GroundLink
-conda create -n GroundLink python=3.9.7 -y
+conda create -y -n GroundLink python=3.9.7 numpy -c conda-forge
 conda activate GroundLink
 conda install -c pytorch pytorch=1.10.2 cudatoolkit=11.3 -y
-pip install numpy
 ```
 
 
@@ -67,6 +66,12 @@ git clone git@github.com:eth-ait/aitviewer.git
 mv forceplate.py aitviewer/
 ```
 
+For Windows, use ```move```:
+```
+move forceplate.py aitviewer/
+```
+
+
 
 Navigate to configuration file and change the model location:
 ```cd aitviewer/aitviewer```
@@ -74,14 +79,26 @@ Navigate to configuration file and change the model location:
 Edit L2 from [aitvconfig.yaml](https://github.com/eth-ait/aitviewer/blob/main/aitviewer/aitvconfig.yaml) to your location of SMPL-X models. If stricly following this repo including the folder structure above:
 ```L2: smplx_models: "./models/smplx_models"```
 
+Edit L205 from [smpl.py](./Visualization/aitviewer/aitviewer/renderables/smpl.py) to use SMPL-X models:
+```model_type="smplx"```
+
 Install:
 ```cd .. && pip install -e .```
 
 We provide sample data located in [./GRF/SampleData/](./GRF/SampleData/) and you can run the viewer with:
 ```python visualize_target_pred.py ``` 
 
-
-## Authors
+## Citation
+```
+@inproceedings{
+han2023groundlink,
+title = {GroundLink: A Dataset Unifying Human Body Movement and Ground Reaction Dynamics},
+author={Han, Xingjian and Senderling, Benjamin and To, Stanley and Kumar, Deepak and Whiting, Emily and Saito, Jun},
+booktitle={ACM SIGGRAPH Asia 2023 Conference Proceedings},
+year = {2023},
+pages = {1--10},
+}
+```
 
 
 ## License
@@ -91,4 +108,4 @@ TBD
 
 ## Acknowledgments
 
-TBD
+This project can be established thanks to the solid foundation laid by the giants before us. We are sincerely grateful for the help and support from the community. A special thanks to all the open source contributors, including but not limited to [UnderPressure](https://github.com/InterDigitalInc/UnderPressure), [AitViewer](https://github.com/eth-ait/aitviewer), [AMASS](https://amass.is.tue.mpg.de/).
