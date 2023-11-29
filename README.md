@@ -1,6 +1,8 @@
 # GroundLink
 
-This repository has official implementation of GroundLink: A Dataset Unifying Human Body Movement and Ground Reaction Dynamics, SIGGRAPH Asia 2023
+This repository has official implementation of GroundLink: A Dataset Unifying Human Body Movement and Ground Reaction Dynamics, SIGGRAPH Asia 2023. 
+
+This page is still under construction. Will update soon!
 
 ## Description
 We introduce _GroundLinkNet_, a benchmark model trained with _GroundLink_.
