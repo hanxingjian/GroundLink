@@ -144,15 +144,10 @@ if __name__ == "__main__":
     GRF_pred = rotate_vis(GRF_pred)
     CoP = rotate_vis(CoP)
     GRF = rotate_vis(GRF)
-    print(GRF_pred)
 
 
-    # print(drawpoint)
     pelvis_trans = gt_data["trans"]
-    # print(pelvis_trans)
     pelvis = rotate_vis(pelvis_trans)
-    # print(pelvis)
-    # print(CoP)
 
 
 
@@ -177,7 +172,6 @@ if __name__ == "__main__":
     v = Viewer()
     v.run_animations = True
     v.scene.camera.position = np.array([10.0, 2.5, 0.0])
-    # v.scene.add(seq_amass, ptc_amass)
     v.scene.add(seq_amass)
 
     v.scene.add(line_renderable)
