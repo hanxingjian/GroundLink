@@ -4,6 +4,7 @@ This repository has official implementation of GroundLink: A Dataset Unifying Hu
 
 This page is still under construction. Will update soon!
 
+
 ## Description
 We introduce _GroundLinkNet_, a benchmark model trained with _GroundLink_.
 
@@ -18,6 +19,10 @@ To reproduce our results, please follow the steps for installation and running t
     ├── GRF                     # scripts and data for GRF and CoP
     │   ├── checkpoints         # checkpoints and trained models
     │   ├── Data                # motion and force data prior to processing
+    │       ├── fbx             # this skeleton data is optional
+    │       ├── Force           # force data
+    │       ├── moshpp          # reconstructed pose and shape parameters 
+    │       ├── AMASS           # TODO: add instruction to download amass data 
     │   ├── ProcessedData       # preprocessed data for NN input
     │   ├── scripts             # tools for processing motion and force data
     │   └── train_smpl.py       # training script
@@ -45,15 +50,29 @@ conda install -c pytorch pytorch=1.10.2 cudatoolkit=11.3 -y
 ## Running the tests
 
 ### Preprocess Input Data
+You will need to run [preprocess.ipynb](./GRF/scripts/preprocess.ipynb) located in [/GRF/scripts](./GRF/scripts/) to generate preprocessed data for each participant. This will save the data to ```GRF/ProcessedData```.
 
-```
-cd (root)/GRF/script
-python preprocess.py
-```
+
+TODO: add notebook for preparing external data including downloading dataset from AMASS page.
 
 ### Test Trained Models
 
-We save our trained models in [GRF/checkpoint](./GRF/checkpoint/). We will release scripts for predictiong with trained models.
+We save our trained models in [GRF/checkpoint](./GRF/checkpoint/). Two pretrained models are provided including testing subject [s004](./GRF/checkpoint/pretrained_s4_noshape.tar) and [s007](./GRF/checkpoint/pretrained_s7_noshape.tar). We will demonstrate s007, and s004 will be similar:
+
+Once preprocessed the data, navigate to ```GRF/ProcessedData/S7```, and create a testing folder, and copy all the files from [preprocess](./GRF/ProcessedData/S7/preprocessed/) to the new created test folder:
+
+```
+cd (root)/ProcessedData/S7
+mkdir test
+cp preprocessed/*.pth test/
+```
+
+Now run [Predict.ipynb](./GRF/scripts/Predict.ipynb) located in [/GRF/scripts](./GRF/scripts/). This step will:
+
+1. Create a folder in ```(root)/GRF/ProcessedData/S7/prediction```
+2. Predict GRF and CoP for user specified subject (currently s007) given the model. 
+
+
 
 ### Train with Motion and Force Data
 
@@ -86,7 +105,12 @@ Install:
 ```cd .. && pip install -e .```
 
 We provide sample data located in [./GRF/SampleData/](./GRF/SampleData/) and you can run the viewer with:
-```python visualize_target_pred.py ``` 
+```python visualize_sample.py ``` 
+
+If you have followed the steps on processing the data and have predicted results, use:
+```python visualize_target_pred_s7.py ``` 
+
+You may modify the trials to what you'd like to test.
 
 ## Citation
 ```
@@ -99,6 +123,16 @@ year = {2023},
 pages = {1--10},
 }
 ```
+
+
+## Update Logs
+2023.12.02 Added scripts for mocap and force data preprocessing
+
+2023.11.30 Added missing forceplate.py file
+
+2023.09.08 Added sample data and visualization instruction 
+
+2023.09.08 Project created
 
 
 ## License

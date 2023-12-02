@@ -83,7 +83,7 @@ class Trainer(util.Timeline):
 		self.model = models.DeepNetwork()
 		self.model = self.model.initialize().to(self.device)
 		self.optimiser = torch.optim.Adam(self.model.parameters(), lr=kwargs["learning_rate"])
-		self.msle_weight = kwargs["msle_weight"]
+		self.mse_weight = kwargs["mse_weight"]
 		
 		trainset, validset = prepare(kwargs["split_ratio"], kwargs["sequence_length"], kwargs["sequence_overlap"])
 
@@ -128,7 +128,7 @@ class Trainer(util.Timeline):
 
 		self.mse = metrics._mse_loss(contact_pred, forces_target)
 		# self.mse = metrics._mse_loss(contact_pred, contact_cop_grf)
-		loss = self.msle_weight * self.mse
+		loss = self.mse_weight * self.mse
 	
 		# optimize
 		loss.backward()
@@ -177,13 +177,13 @@ if __name__ == "__main__":
 	import os
 	parser = ArgumentParser()
 	checkpointpath = './checkpoint'
-	checkpointname = 'testing'
+	checkpointname = 'noshape_s7_3e6_73_3e-6'
 	checkpoint = os.path.join(checkpointpath, checkpointname+'.tar')
 
 	parser.add_argument("-ckp", default=checkpoint, type=Path,					help="Path to make checkpoint during training ........................ default: 'checkpoint.tar'")
 	parser.add_argument("-device", default="cuda", type=str,					help="Device used to run training .................................... default: cuda")
 	parser.add_argument("-learning_rate", default=3e-5, type=float, 			help="Adam optimisation algorithm learning rate ...................... default: 3e-5")
-	parser.add_argument("-msle_weight", default=0.002, type=float,				help="MSLE loss weight ............................................... default: 0.002")
+	parser.add_argument("-mse_weight", default=0.002, type=float,				help="MSE loss weight ............................................... default: 0.002")
 	parser.add_argument("-batch_size", default=64, type=int,					help="Batch size ..................................................... default: 64")
 	parser.add_argument("-iterations", default=1e8, type=int,					help="Number of training iterations .................................. default: 1e8")
 	parser.add_argument("-split_ratio", default=0.7, type=float,				help="Train/Validation split ratio ................................... default: 0.9")
