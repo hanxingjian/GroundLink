@@ -10,4 +10,4 @@ GRF/ProcessedData/
 Visualization/aitviewer/
 Visualization/models/
 
-*.ipynb
+# *.ipynb
